@@ -3,15 +3,22 @@ declare i32 @printf(i8*, ...)
 
 define i32 @main() {
 entry:
-  %x = alloca i32, align 4
+
+; stack use 
+  %x = alloca i32, align 4  ; mov x, 42
+
+; lifetime optimization : start
   call void @llvm.lifetime.start.p0(i64 4, ptr %x)
 
+; load value 
   store i32 42, ptr %x
   %v = load i32, ptr %x
 
+; call printf, str, x
   %format_ptr = getelementptr [6 x i8], [6 x i8]* @format, i32 0
   call i32 (i8*, ...) @printf(i8* %format_ptr, i32 %v)
 
+; lifetime optimization : end 
   call void @llvm.lifetime.end.p0(i64 4, ptr %x)
 
 ; re-printf 
