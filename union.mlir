@@ -6,7 +6,7 @@
 ; printf 
 declare void @printf(i8*, ...)
 ; fmt
-@fmt1 = private constant [41 x i8] c"\union { int x, double y } = { %d : %f }\0a"
+@fmt1 = private constant [58 x i8] c"\NUMBER { int x, double y } => x:NUMBER=%d || y:NUMBER=%f\0a"
 
 ; main ()
 define i8 @main () {

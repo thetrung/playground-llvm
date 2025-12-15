@@ -1,7 +1,7 @@
 declare i32 @malloc(i64)
 declare void @free(ptr)
 declare void @printf(i8*, ...)
-@format = private constant [12 x i8] c"x: %d @ $%d\0a"
+@format = private constant [13 x i8] c"\x: %d @ $%d\0a"
                                             ;const fmt: string ".."
 
 define i8 @main() {
