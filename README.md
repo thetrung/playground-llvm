@@ -4,6 +4,10 @@ because it's like ASM on steroids x free cross-platform compiling.
 ### Intro
 This is more like fragments of features I want in my own language for decades. But I only really understand Assembly in recent years as I dig deeper into VM and FASM.
 
+### Build & Run
+
+      make
+
 ### Region-based Language
 Although there are already a lot of nice language like Odin/Jai &  OCAML -- which seem to be very close to what I want but there is still a gap between them : some is fast but still lack/verbase features while the other is solid ML but GC-based and thus slower than native C/LLVM.
 
