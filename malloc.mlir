@@ -18,7 +18,7 @@ body:
   %v = load i32, ptr %buf                   
 
   ; printf #1 number                         printf (&fmt, v) 
-  %format_ptr = getelementptr [6 x i8], [6 x i8]* @format, i32 0, i32 1
+  %format_ptr = getelementptr [1 x i8], ptr @format, i32 0, i32 1
   call i32 (i8*, ...) @printf(i8* %format_ptr, i32 %v, ptr %buf)
 
   ; printf #2 number 

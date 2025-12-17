@@ -27,7 +27,7 @@ define i8 @main () {
     %y = load float, ptr %py
 
 ; printf float -- float
-    %ptr_fmt1 = getelementptr [6 x i8], [6 x i8]* @fmt1, i32 0, i32 1
+    %ptr_fmt1 = getelementptr [1 x i8], ptr @fmt1, i32 0, i32 1
     call i32 (i8*, ...) @printf(i8* %ptr_fmt1, float %x, float %y)
 
 ; 2.Extract from Memory :
@@ -36,7 +36,7 @@ define i8 @main () {
     %epy = extractvalue {float, float} %ep, 1
 
 ; printf float -- float
-    %ptr_fmt2 = getelementptr [6 x i8], [6 x i8]* @fmt2, i32 0, i32 1
+    %ptr_fmt2 = getelementptr [1 x i8], ptr @fmt2, i32 0, i32 1
     call i32 (i8*, ...) @printf(i8* %ptr_fmt2, float %epx, float %epy)
 
 ; In Register : 
@@ -49,7 +49,7 @@ define i8 @main () {
     %vy = extractvalue { float, float } %v2, 1
 
 ; printf float -- float
-    %ptr_fmt3 = getelementptr [6 x i8], [6 x i8]* @fmt3, i32 0, i32 1
+    %ptr_fmt3 = getelementptr [1 x i8], ptr @fmt3, i32 0, i32 1
     call i32 (i8*, ...) @printf(i8* %ptr_fmt3, float %vx, float %vy)
 
 ; return 0

@@ -15,7 +15,7 @@ entry:
   %v = load i32, ptr %x
 
 ; call printf, str, x
-  %format_ptr = getelementptr [6 x i8], [6 x i8]* @format, i32 0
+  %format_ptr = getelementptr [1 x i8], ptr @format, i32 0
   call i32 (i8*, ...) @printf(i8* %format_ptr, i32 %v)
 
 ; lifetime optimization : end 

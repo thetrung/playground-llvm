@@ -25,7 +25,7 @@ store double 3.14     , ptr %y
 %value_y = load double, ptr %y
 
 ; printf int(0) -- double(1)
-%ptr_fmt1 = getelementptr [4 x i8], [8 x i8]* @fmt1, i32 0, i32 1
+%ptr_fmt1 = getelementptr [1 x i8], ptr @fmt1, i32 0, i32 1
 call i32 (i8*, ...) @printf(i8* %ptr_fmt1, i32 %value_x, double %value_y)
 
 ; return 0
