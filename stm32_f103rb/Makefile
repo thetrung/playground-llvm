@@ -1,19 +1,20 @@
-default: build prog
+default: startup blink linker prog clean
 
-build:
+startup:
 	clang -target armv7m-none-eabi -mcpu=cortex-m3 -mthumb \
   	-ffreestanding -nostdlib -c startup.ll -o startup.o 
+
+blink:
 	clang -target armv7m-none-eabi -mcpu=cortex-m3 -mthumb \
-  	-ffreestanding -nostdlib -c main.ll -o main.o
-	clang \
-    -fuse-ld=lld \
-    -target armv7m-none-eabi \
-    -mcpu=cortex-m3 \
-  	-mthumb \
+  	-ffreestanding -nostdlib -c blink.ll -o blink.o
+
+linker:
+	clang -target armv7m-none-eabi -mcpu=cortex-m3 -mthumb \
   	-nostdlib \
+    -fuse-ld=lld \
   	-Wl,-T,stm32f103.ld \
   	-Wl,--gc-sections \
-  	startup.o main.o \
+  	startup.o blink.o \
   	-o firmware.elf
 
 prog:
