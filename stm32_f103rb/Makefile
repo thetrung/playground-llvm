@@ -1,4 +1,6 @@
-default: startup blink linker prog clean
+default: startup blink linker raw debug clean
+
+run: 		 startup blink linker raw prog
 
 startup:
 	clang -target armv7m-none-eabi -mcpu=cortex-m3 -mthumb \
@@ -17,12 +19,22 @@ linker:
   	startup.o blink.o \
   	-o firmware.elf
 
-prog:
+debug:
 	openocd \
   -f interface/stlink.cfg \
   -f target/stm32f1x.cfg \
   -c "program firmware.elf verify reset exit"
 
+raw:
+	llvm-objcopy -O binary firmware.elf firmware.bin
+	ls -lh . | grep firmware
+
+prog:
+	openocd \
+  -f interface/stlink.cfg \
+  -f target/stm32f1x.cfg \
+  -c "program firmware.bin 0x08000000 verify reset exit"
+
 clean:
-	rm firmware.elf
+	rm firmware.*
 	rm *.o
