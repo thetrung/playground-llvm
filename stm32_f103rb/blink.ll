@@ -19,8 +19,10 @@ entry:
   br label %loop
 
 loop:
-  ; LED ON (PA5 HIGH)
+  ; Get address -> GPIOA_BSRR
   %bsrr = inttoptr i32 u0x40010810 to ptr ; GPIOA_BSRR = u0x40010810
+  
+  ; LED ON (PA5 HIGH)
   store volatile i32 32, ptr %bsrr        ; set PA5 (1 << 5)
   call void @delay()
 
