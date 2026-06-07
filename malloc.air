@@ -1,0 +1,22 @@
+extrn i32 @malloc(i64)
+extrn void @free(ptr)
+extrn void @printf(i8* ...)
+
+@format string "\x: %d @ $%d\0a"
+
+func main () -> i8 
+  make base i64 {num1, num2}  
+  ;malloc 2 i64 in base       ;call @malloc 2 i64  in base
+  ;num1 as base[0]            ;lea num1 base[0]
+  ;num2 as base[2]            ;lea num2 base[1]
+  
+  gep fmt @format i32 i32     ;gep @format i32 i32 in fmt
+
+  num1 = 42                   ;mov base[0] 42
+  print &fmt &num1 num1       ;call @printf &fmt &num1 num1
+  
+  num2 = 40                   ;mov base[1] 40
+  print &fmt &num2 num2       ;call @printf &fmt &num2 num2
+
+  ;auto-free                  ;call @free &base
+ret 0
