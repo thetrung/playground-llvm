@@ -12,10 +12,10 @@ func main () -> i8
   
   gep fmt @format i32 i32     ;gep @format i32 i32 in fmt
 
-  num1 = 42                   ;mov base[0] 42
+  load num1 42                   ;mov base[0] 42
   print &fmt &num1 num1       ;call @printf &fmt &num1 num1
   
-  num2 = 40                   ;mov base[1] 40
+  load num2 40                   ;mov base[1] 40
   print &fmt &num2 num2       ;call @printf &fmt &num2 num2
 
   ;auto-free                  ;call @free &base
