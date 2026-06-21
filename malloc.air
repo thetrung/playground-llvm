@@ -2,21 +2,38 @@ extrn i32 @malloc(i64)
 extrn void @free(ptr)
 extrn void @printf(i8* ...)
 
-@format string "\x: %d @ $%d\0a"
+@fmt_x string "\x: %d @ $%d\0a"
 
-func main () -> i8 
-  make base i64 {num1, num2}  
+main: 
+  with nothing
+  return i8 
+
+  create [i64] as base with (num1 num2)
   ;malloc 2 i64 in base       ;call @malloc 2 i64  in base
   ;num1 as base[0]            ;lea num1 base[0]
   ;num2 as base[2]            ;lea num2 base[1]
   
-  gep fmt @format i32 i32     ;gep @format i32 i32 in fmt
+  create [1024] as buffer
 
-  load num1 42                   ;mov base[0] 42
-  print &fmt &num1 num1       ;call @printf &fmt &num1 num1
+  gep (@fmt_x i32 i32) as fmt_x                         ;gep @fmt_x i32 i32 in fmt
+
+  load num1 with 42                                     ;mov base[0] 42
+  call print with ( address fmt_x, address num1, num1)     ;call @printf &fmt &num1 num1
   
-  load num2 40                   ;mov base[1] 40
-  print &fmt &num2 num2       ;call @printf &fmt &num2 num2
+  load num2 with 40                                       ;mov base[1] 40
+  call print with ( address fmt_x, address num2, num2 )     ;call @printf &fmt &num2 num2
 
-  ;auto-free                  ;call @free &base
-ret 0
+  add num1 num2 as sum
+  div sum 2     as final
+
+  call pass_data with buffer              ;buffer is passed as pointer
+
+  ;call @free &base when base is no longer used elsewhere.
+  return 0
+
+pass_data:
+  with buffer as [i64]
+  return nothing
+
+  return                                  ;buffer will be freed when no longer being used.
+
